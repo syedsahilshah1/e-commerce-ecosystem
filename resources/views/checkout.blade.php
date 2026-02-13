@@ -74,7 +74,10 @@
     .cart-item-preview .qty { color: var(--text-muted); }
 
     @media (max-width: 992px) {
-        .checkout-container { grid-template-columns: 1fr; }
+        .checkout-container { grid-template-columns: 1fr; margin: 1.5rem auto; gap: 1.5rem; padding: 0 1rem; }
+        .checkout-card { padding: 1.5rem; }
+        .form-grid { grid-template-columns: 1fr; gap: 1rem; }
+        .checkout-card h2 { font-size: 1.2rem; margin-bottom: 1.5rem; }
     }
 </style>
 @endsection

@@ -98,6 +98,36 @@
     .order-items { width: 100%; border-collapse: collapse; }
     .order-items td { padding: 0.5rem 0; color: var(--text-secondary); }
     .order-items td:last-child { text-align: right; color: var(--text-main); font-weight: 600; }
+
+    @media (max-width: 768px) {
+        .order-header { flex-direction: column; gap: 1rem; }
+        .order-header div { text-align: left !important; }
+        .progress-tracker { 
+            flex-direction: column; 
+            gap: 1.5rem; 
+            align-items: flex-start;
+            padding-left: 1rem;
+        }
+        .progress-tracker::before {
+            left: 25px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            height: 100%;
+        }
+        .tracker-step {
+            flex-direction: row;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            text-align: left;
+        }
+        .step-dot { margin: 0; flex-shrink: 0; }
+        .step-label { font-size: 0.8rem; }
+        
+        .order-items img { width: 40px; height: 40px; }
+        .order-items td { font-size: 0.85rem; }
+    }
 </style>
 @endsection
 

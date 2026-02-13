@@ -160,13 +160,20 @@
         color: white;
     }
 
-    @media (max-width: 1024px) {
-        .bento-item { grid-column: span 6 !important; }
+    @media (max-width: 1200px) {
+        .category-bento { gap: 1rem; padding: 0 1rem; }
+        .bento-item { grid-column: span 6 !important; min-height: 350px; padding: 2rem; }
+        .bento-item:nth-child(1) { grid-column: span 12 !important; }
+        .hero-visual h1 { font-size: 5rem; }
     }
 
     @media (max-width: 768px) {
-        .bento-item { grid-column: span 12 !important; }
-        .hero-visual h1 { font-size: 4rem; }
+        .bento-item { grid-column: span 12 !important; min-height: auto; padding: 2rem; border-radius: 24px; }
+        .hero-visual { padding: 8rem 1rem 4rem; }
+        .hero-visual h1 { font-size: 3.5rem; letter-spacing: -2px; }
+        .cat-info h2 { font-size: 1.8rem; }
+        .cat-icon { font-size: 2.5rem; }
+        .collections-page { padding-bottom: 5rem; }
     }
 </style>
 @endsection

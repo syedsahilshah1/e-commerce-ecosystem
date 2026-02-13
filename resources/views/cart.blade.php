@@ -86,6 +86,21 @@
     }
 
     .remove-btn:hover { opacity: 0.7; }
+
+    @media (max-width: 992px) {
+        .cart-container { padding: 0 1rem; margin: 1.5rem auto; }
+        .cart-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        .cart-table th, .cart-table td { padding: 1rem; min-width: 120px; }
+        .cart-item-info { min-width: 250px; }
+        .cart-summary { justify-content: center; }
+        .summary-card { width: 100%; max-width: 400px; }
+    }
+
+    @media (max-width: 480px) {
+        .cart-table th, .cart-table td { padding: 0.75rem; font-size: 0.85rem; }
+        .cart-item-info img { width: 50px; height: 50px; border-radius: 8px; }
+        .qty-input { width: 45px; padding: 0.3rem; }
+    }
 </style>
 @endsection
 

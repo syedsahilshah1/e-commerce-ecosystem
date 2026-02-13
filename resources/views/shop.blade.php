@@ -148,8 +148,51 @@
     }
 
     @media (max-width: 992px) {
-        .shop-layout { grid-template-columns: 1fr; }
-        .filter-sidebar { display: none; }
+        .shop-layout { grid-template-columns: 1fr; margin: 1rem auto; gap: 1.5rem; }
+        .filter-sidebar { 
+            position: relative; 
+            top: 0; 
+            overflow-x: auto; 
+            display: flex; 
+            gap: 0.75rem; 
+            padding-bottom: 0.5rem;
+            scrollbar-width: none;
+            margin-bottom: 0;
+        }
+        .filter-sidebar::-webkit-scrollbar { display: none; }
+        
+        .filter-card { 
+            background: transparent; 
+            border: none; 
+            padding: 0; 
+            margin: 0; 
+            flex-shrink: 0;
+        }
+
+        .filter-title { display: none; }
+        
+        .filter-list { 
+            flex-direction: row; 
+            gap: 0.5rem; 
+        }
+
+        .filter-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            padding: 0.5rem 1.25rem;
+            white-space: nowrap;
+        }
+
+        .filter-item a { font-size: 0.85rem; }
+        .filter-item.active { border-color: var(--primary); background: rgba(124, 58, 237, 0.1); }
+        .filter-item.active a { color: var(--primary-light); font-weight: 700; }
+
+        .shop-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+        .shop-header h1 { font-size: 1.8rem; }
+        .product-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1rem; }
+        .product-details { padding: 1rem; }
+        .product-name { font-size: 0.9rem; }
     }
 </style>
 @endsection
@@ -162,29 +205,15 @@
             <h3 class="filter-title"><i class="fas fa-th-large"></i> Categories</h3>
             <ul class="filter-list">
                 <li class="filter-item {{ !request('category') ? 'active' : '' }}">
-                    <a href="{{ route('shop') }}">All Collections</a>
+                    <a href="{{ route('shop', array_merge(request()->except('category', 'page'))) }}">All Drops</a>
                 </li>
                 @foreach($categories as $cat)
                 <li class="filter-item {{ request('category') == $cat->slug ? 'active' : '' }}">
-                    <a href="{{ route('shop', ['category' => $cat->slug]) }}">
+                    <a href="{{ route('shop', array_merge(request()->except('page'), ['category' => $cat->slug])) }}">
                         {{ $cat->name }}
-                        <span style="opacity: 0.5; font-size: 0.8rem;"></span>
                     </a>
                 </li>
                 @endforeach
-            </ul>
-        </div>
-
-        <div class="filter-card">
-            <h3 class="filter-title"><i class="fas fa-tags"></i> Price Range</h3>
-            <ul class="filter-list" style="gap: 15px;">
-                <li style="display: flex; flex-direction: column; gap: 8px;">
-                    <span style="font-size: 0.8rem; color: var(--text-muted);">Starting from</span>
-                    <strong style="font-size: 1.5rem;">$25.00</strong>
-                </li>
-                <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.4;">
-                    Our premium selection is curated for quality and timeless style.
-                </p>
             </ul>
         </div>
     </aside>

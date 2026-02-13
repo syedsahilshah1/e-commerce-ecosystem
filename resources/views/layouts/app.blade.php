@@ -78,33 +78,35 @@
         }
 
         .logo {
-            font-size: 1.4rem;
+            font-size: 1.25rem;
             font-weight: 800;
             color: var(--text-main);
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             letter-spacing: -0.5px;
+            flex-shrink: 0;
         }
 
         .logo i {
             background: var(--gradient-primary);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            font-size: 1.6rem;
+            font-size: 1.4rem;
         }
 
-        nav { display: flex; gap: 0.5rem; }
+        nav { display: flex; gap: 0.25rem; }
 
         nav a {
             text-decoration: none;
             color: var(--text-secondary);
             font-weight: 500;
-            font-size: 0.9rem;
-            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
+            padding: 0.5rem 0.75rem;
             border-radius: var(--radius-xs);
             transition: all 0.2s ease;
+            white-space: nowrap;
         }
 
         nav a:hover, nav a.active {
@@ -114,7 +116,7 @@
 
         .nav-icons {
             display: flex;
-            gap: 0.5rem;
+            gap: 0.25rem;
             align-items: center;
         }
 
@@ -123,8 +125,8 @@
             color: var(--text-secondary);
             position: relative;
             text-decoration: none;
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -133,7 +135,7 @@
             background: none;
             border: none;
             cursor: pointer;
-            font-size: 1rem;
+            font-size: 0.95rem;
         }
 
         .nav-icons a:hover,
@@ -142,21 +144,27 @@
             background: rgba(124, 58, 237, 0.1);
         }
 
+        @media (max-width: 1024px) {
+            nav { display: none; }
+            header { padding: 0 4%; }
+        }
+
         .cart-badge {
             position: absolute;
-            top: 4px;
+            top: 2px;
             right: 2px;
             background: var(--secondary);
             color: white;
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             font-weight: 700;
-            min-width: 18px;
-            height: 18px;
-            border-radius: 9px;
+            min-width: 16px;
+            height: 16px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0 4px;
+            padding: 0 3px;
+            border: 2px solid var(--bg);
         }
 
         /* ===== MOBILE NAV ===== */
@@ -170,22 +178,47 @@
             padding: 0.5rem;
         }
 
-        @media (max-width: 768px) {
-            .mobile-toggle { display: block; }
+        @media (max-width: 1024px) {
+            .mobile-toggle { display: block; margin-right: 1rem; }
             nav {
                 position: fixed;
-                top: 70px;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                width: 280px;
+                background: var(--bg-secondary);
+                border-right: 1px solid var(--border);
+                flex-direction: column;
+                padding: 2rem;
+                transform: translateX(-100%);
+                transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+                z-index: 2000;
+                display: flex;
+                gap: 1rem;
+            }
+            nav.open { transform: translateX(0); }
+            
+            nav::before {
+                content: 'MENU';
+                font-size: 0.75rem;
+                font-weight: 800;
+                color: var(--text-muted);
+                letter-spacing: 2px;
+                margin-bottom: 1rem;
+            }
+
+            .mobile-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
                 left: 0;
                 right: 0;
-                background: var(--bg-secondary);
-                border-bottom: 1px solid var(--border);
-                flex-direction: column;
-                padding: 1rem;
-                transform: translateY(-110%);
-                transition: transform 0.3s ease;
-                z-index: 999;
+                bottom: 0;
+                background: rgba(0,0,0,0.5);
+                backdrop-filter: blur(4px);
+                z-index: 1999;
             }
-            nav.open { transform: translateY(0); }
+            .mobile-overlay.open { display: block; }
         }
 
         /* ===== MAIN ===== */
@@ -620,9 +653,10 @@
             <i class="fas fa-gem"></i> NOBLER
         </a>
 
-        <button class="mobile-toggle" onclick="document.querySelector('nav').classList.toggle('open')" aria-label="Toggle Menu">
+        <button class="mobile-toggle" onclick="toggleMenu()" aria-label="Toggle Menu">
             <i class="fas fa-bars"></i>
         </button>
+        <div class="mobile-overlay" id="mobile-overlay" onclick="toggleMenu()"></div>
 
         <nav>
             <a href="/" class="{{ request()->is('/') ? 'active' : '' }}">Home</a>
@@ -831,6 +865,25 @@
                     window.isDark = !window.isDark;
                     applyTheme();
                 });
+            }
+        });
+
+        function toggleMenu() {
+            const nav = document.querySelector('nav');
+            const overlay = document.getElementById('mobile-overlay');
+            nav.classList.toggle('open');
+            overlay.classList.toggle('open');
+            document.body.style.overflow = nav.classList.contains('open') ? 'hidden' : '';
+        }
+
+        // Close menu on navigation
+        document.addEventListener('turbo:render', () => {
+            const nav = document.querySelector('nav');
+            const overlay = document.getElementById('mobile-overlay');
+            if(nav && nav.classList.contains('open')) {
+                nav.classList.remove('open');
+                overlay.classList.remove('open');
+                document.body.style.overflow = '';
             }
         });
 

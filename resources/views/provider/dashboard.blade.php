@@ -81,6 +81,20 @@
     .btn-danger { background: #ef4444; color: white; margin-left: 0.5rem; }
     .text-danger { color: #ef4444; }
     .text-success { color: #10b981; }
+
+    @media (max-width: 992px) {
+        .admin-section { padding: 1.5rem; overflow-x: auto; }
+        .admin-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        .admin-table th, .admin-table td { min-width: 120px; font-size: 0.85rem; }
+        .stat-card p { font-size: 1.5rem; }
+    }
+
+    @media (max-width: 768px) {
+        .dashboard-container { margin: 1rem auto; }
+        .dashboard-container div:first-child { flex-direction: column; align-items: flex-start; gap: 1rem; }
+        .stats-grid { grid-template-columns: 1fr; }
+        .admin-section h2 { font-size: 1.2rem; }
+    }
 </style>
 @endsection
 

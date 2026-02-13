@@ -243,13 +243,19 @@
         margin-top: 6rem;
     }
 
-    @media (max-width: 768px) {
-        .product-detail-grid {
-            grid-template-columns: 1fr;
-            gap: 2rem;
-        }
-        .detail-info h1 { font-size: 1.6rem; }
-        .detail-current-price { font-size: 1.8rem; }
+    @media (max-width: 992px) {
+        .product-detail-grid { grid-template-columns: 1fr; gap: 2rem; }
+        .detail-image-container { min-height: auto; aspect-ratio: 1; }
+        .detail-info h1 { font-size: 1.8rem; }
+        .review-layout { grid-template-columns: 1fr !important; gap: 2rem !important; }
+        .detail-actions { grid-template-columns: 1fr !important; }
+        .detail-actions .btn { width: 100% !important; }
+    }
+
+    @media (max-width: 480px) {
+        .detail-current-price { font-size: 1.6rem; }
+        .detail-image-container { border-radius: 0; margin: 0 -1rem; }
+        .size-options { flex-wrap: wrap; }
     }
 </style>
 @endsection
@@ -402,7 +408,7 @@
             </div>
         </div>
 
-        <div style="display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem;">
+        <div class="review-layout" style="display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem;">
             <!-- Leave a Review -->
             <div>
                 <div style="background: var(--card-bg); padding: 2rem; border-radius: var(--radius); border: 1px solid var(--border); position: sticky; top: 100px;">
